@@ -1,6 +1,6 @@
 # WordProcessor
 
-Simple word processor built with an Agent for concurrent safety and simplicity.
+Simple word processor built with an Agent for concurrent-safety and simplicity.
 Basic cli built with https://github.com/bjufre/ex_prompt
 
 ## Prerequisites:
