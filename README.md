@@ -1,21 +1,16 @@
 # WordProcessor
 
-**TODO: Add description**
+Simple word processor built with an Agent for concurrent safety and simplicity.
+Basic cli built with https://github.com/bjufre/ex_prompt
 
-## Installation
+## Prerequisites:
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `word_processor` to your list of dependencies in `mix.exs`:
+Have elixir and mix installed locally.
 
-```elixir
-def deps do
-  [
-    {:word_processor, "~> 0.1.0"}
-  ]
-end
-```
+## How to start the project
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/word_processor>.
-
+- `mix deps.get`
+- `iex -S mix`
+- `Cli.start` - just start and interact with the cli.
+- Alternatively interact with the word processor directly.
+- `mix test` to run the test cases.

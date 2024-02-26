@@ -5,8 +5,8 @@ defmodule WordProcessor do
   use Agent
 
   @spec start_link(List.t()) :: {:ok, pid()} | {:error, {:already_started, pid()} | term()}
-  def start_link(initial_state) when is_list(initial_state) do
-    Agent.start_link(fn -> initial_state end, name: __MODULE__)
+  def start_link(source_string) when is_binary(source_string) do
+    Agent.start_link(fn -> String.split(source_string, ",", trim: true) end, name: __MODULE__)
   end
 
   @spec state() :: String.t() | nil
