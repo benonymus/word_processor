@@ -48,4 +48,7 @@ defmodule WordProcessor do
       end)
     end)
   end
+
+  @spec stop() :: :ok
+  def stop, do: Agent.stop(__MODULE__)
 end

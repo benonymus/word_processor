@@ -3,8 +3,8 @@ defmodule WordProcessorTest do
 
   describe "functionality tests" do
     setup do
-      WordProcessor.start_link("test,comma,separated,words")
-      :ok
+      {:ok, pid} = WordProcessor.start_link("test,comma,separated,words")
+      {:ok, %{pid: pid}}
     end
 
     test "get_state" do
@@ -28,6 +28,12 @@ defmodule WordProcessorTest do
 
     test "search" do
       assert "comma" == WordProcessor.search("o")
+    end
+
+    test "stop", %{pid: pid} do
+      assert Process.alive?(pid)
+      :ok = WordProcessor.stop()
+      refute Process.alive?(pid)
     end
   end
 end

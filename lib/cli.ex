@@ -9,7 +9,7 @@ defmodule Cli do
 
     source_string =
       ExPrompt.string_required(
-        "Please provide your entries as a comma separated string (ex.: hey,there,how,are,you,doing?)!\s"
+        "Please provide your entries as a single, comma separated string (ex.: hey,there,how,are,you,doing?)!\s"
       )
 
     {:ok, _pid} = WordProcessor.start_link(source_string)
@@ -19,6 +19,7 @@ defmodule Cli do
     if correct? do
       choose_action()
     else
+      WordProcessor.stop()
       IO.puts("\nPlease restart!")
     end
   end
@@ -50,7 +51,9 @@ defmodule Cli do
       ExPrompt.string_required("Please provide your new entry!\s")
 
     position =
-      ExPrompt.string_required("Please provide the position for your new entry!\s")
+      ExPrompt.string_required(
+        "Please provide the position (0 based indexing!) for your new entry!\s"
+      )
 
     WordProcessor.insert(value, String.to_integer(position))
 
@@ -61,12 +64,16 @@ defmodule Cli do
 
   defp execute_action("delete") do
     from =
-      ExPrompt.string_required("Please provide the starting position for deletion!\s")
+      ExPrompt.string_required(
+        "Please provide the starting position (0 based indexing!) for deletion!\s"
+      )
 
     to =
-      ExPrompt.string_required("Please provide the ending position for deletion!\s")
+      ExPrompt.string_required(
+        "Please provide the ending position (0 based indexing!) for deletion!\s"
+      )
 
-    WordProcessor.delete(String.to_integer(from) - 1, String.to_integer(to) - 1)
+    WordProcessor.delete(String.to_integer(from), String.to_integer(to))
 
     IO.puts("Success!")
 
