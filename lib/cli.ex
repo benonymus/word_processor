@@ -8,7 +8,9 @@ defmodule Cli do
     IO.puts("Hello there!")
 
     source_string =
-      ExPrompt.string_required("Please provide your entries as a comma separated string (ex.: hey,there,how,are,you,doing?)!\s")
+      ExPrompt.string_required(
+        "Please provide your entries as a comma separated string (ex.: hey,there,how,are,you,doing?)!\s"
+      )
 
     {:ok, _pid} = WordProcessor.start_link(source_string)
 
