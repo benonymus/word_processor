@@ -9,12 +9,12 @@ defmodule Cli do
 
     source_string =
       ExPrompt.string_required(
-        "Please provide your entries as a single, comma separated string (ex.: hey,there,how,are,you,doing?)!\s"
+        "Please provide your document (ex.: Hey there, How are you doing?)!\s"
       )
 
     {:ok, _pid} = WordProcessor.start_link(source_string)
 
-    correct? = ExPrompt.confirm("Were these your entires #{inspect(WordProcessor.state())}?")
+    correct? = ExPrompt.confirm("Was this your document: #{WordProcessor.state()}?")
 
     if correct? do
       choose_action()
@@ -25,7 +25,7 @@ defmodule Cli do
   end
 
   defp choose_action do
-    "Choose an action to execute on your entries!"
+    "Choose an action to execute on your document!"
     |> ExPrompt.choose(@actions)
     |> validate_selection()
   end
@@ -42,7 +42,7 @@ defmodule Cli do
   end
 
   defp execute_action("get_state") do
-    IO.puts("Here are you current entries: #{inspect(WordProcessor.state())}")
+    IO.puts("Here is your current document: #{WordProcessor.state()}")
     choose_action()
   end
 
@@ -100,7 +100,7 @@ defmodule Cli do
     substring =
       ExPrompt.string_required("Please provide your search substring!\s")
 
-    IO.puts("Here is your search result: #{inspect(WordProcessor.search(substring))}")
+    IO.puts("Here is your padded search result: #{WordProcessor.search(substring)}")
 
     choose_action()
   end

@@ -3,31 +3,31 @@ defmodule WordProcessorTest do
 
   describe "functionality tests" do
     setup do
-      {:ok, pid} = WordProcessor.start_link("test,comma,separated,words")
+      {:ok, pid} = WordProcessor.start_link("Hey there, How are you doing?")
       {:ok, %{pid: pid}}
     end
 
     test "get_state" do
-      assert ["test", "comma", "separated", "words"] == WordProcessor.state()
+      assert "Hey there, How are you doing?" == WordProcessor.state()
     end
 
     test "insert" do
-      :ok = WordProcessor.insert("new word", 2)
-      assert ["test", "comma", "new word", "separated", "words"] == WordProcessor.state()
+      :ok = WordProcessor.insert(" John", 9)
+      assert "Hey there John, How are you doing?" == WordProcessor.state()
     end
 
     test "delete" do
-      :ok = WordProcessor.delete(0, 2)
-      assert ["words"] == WordProcessor.state()
+      :ok = WordProcessor.delete(0, 3)
+      assert "there, How are you doing?" == WordProcessor.state()
     end
 
     test "replace" do
-      :ok = WordProcessor.replace("mm", "xx")
-      assert ["test", "coxxa", "separated", "words"] == WordProcessor.state()
+      :ok = WordProcessor.replace("there", "John")
+      assert "Hey John, How are you doing?" == WordProcessor.state()
     end
 
     test "search" do
-      assert "comma" == WordProcessor.search("o")
+      assert "Hey there, How" == WordProcessor.search("there")
     end
 
     test "stop", %{pid: pid} do
